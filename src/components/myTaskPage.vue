@@ -3,8 +3,6 @@ import { ref } from 'vue'
 import { task } from './globarVar'
 import { finishTask } from './globarVar'
 
-
-
 function startTimer(item) {
   item.timerActive = !item.timerActive
 
@@ -19,19 +17,23 @@ function startTimer(item) {
         item.timer[1] = 0
         item.timer[2]++
       }
+      localStorage.setItem('taskItem', JSON.stringify(task.value))
     }, 10)
   } else {
     clearInterval(item.timerInterval)
   }
   checkActive(event)
-  localStorage.setItem('taskItem', JSON.stringify(task.value))
 }
+const LocalfinishTask = JSON.parse(localStorage.getItem('finishTaskItem'))
+  if (LocalfinishTask) {
+    finishTask.value = LocalfinishTask
+  }
 
-function endTask(item){
-    clearInterval(item.timerInterval)
-    finishTask.value.push(item)
-    deletTask(item)
-    localStorage.setItem('finishTaskItem', JSON.stringify(finishTask.value))
+function endTask(item) {
+  clearInterval(item.timerInterval)
+  finishTask.value.push(item)
+  localStorage.setItem('finishTaskItem', JSON.stringify(finishTask.value))
+  deletTask(item)
 }
 
 function deletTask(item) {
@@ -39,7 +41,7 @@ function deletTask(item) {
   localStorage.setItem('taskItem', JSON.stringify(task.value))
 }
 
-function checkActive(event){
+function checkActive(event) {
   if (event.target.classList.contains('btn')) {
     event.target.classList.toggle('active')
   }
@@ -56,11 +58,29 @@ function checkActive(event){
           <div class="task">
             <p class="task__text">{{ item.text }}</p>
             <div class="task__btn">
-              <img @click="startTimer(item)" class="btn" :src="item.timerActive ? 'https://www.pngarts.com/files/2/Pause-PNG-Picture.png' : 'https://static.tildacdn.com/tild6363-6534-4562-a562-336133346563/play-vector-icon.png'"/>
+              <img
+                @click="startTimer(item)"
+                class="btn"
+                :src="
+                  item.timerActive
+                    ? 'https://www.pngarts.com/files/2/Pause-PNG-Picture.png'
+                    : 'https://static.tildacdn.com/tild6363-6534-4562-a562-336133346563/play-vector-icon.png'
+                "
+              />
 
-                <img @click="endTask(item)" class="btn" src="https://www.svgrepo.com/show/48420/racing-flag.svg" alt="" />
+              <img
+                @click="endTask(item)"
+                class="btn"
+                src="https://www.svgrepo.com/show/48420/racing-flag.svg"
+                alt=""
+              />
 
-                <img @click="deletTask(item)" class="btn" src="https://cdn2.iconfinder.com/data/icons/e-commerce-line-10-1/1024/remove10-1024.png" alt=""/>
+              <img
+                @click="deletTask(item)"
+                class="btn"
+                src="https://cdn2.iconfinder.com/data/icons/e-commerce-line-10-1/1024/remove10-1024.png"
+                alt=""
+              />
             </div>
           </div>
           <div class="timer">
@@ -124,7 +144,7 @@ function checkActive(event){
   display: flex;
   column-gap: 7px;
 }
-.task__btn img{
+.task__btn img {
   height: 35px;
   width: 35px;
   background-color: #fff;
@@ -140,42 +160,41 @@ function checkActive(event){
   font-weight: bold;
   min-width: 100px;
   max-width: 100px;
-
 }
 .empty {
   text-align: center;
   color: #ffffff3a;
 }
-.task__btn .active{
+.task__btn .active {
   background-color: #a8a8a8;
 }
-@media(max-width: 768px){
-  .myTask__wrapp{
+@media (max-width: 768px) {
+  .myTask__wrapp {
     width: 600px;
   }
 }
-@media(max-width: 615px){
-  .myTask__wrapp{
+@media (max-width: 615px) {
+  .myTask__wrapp {
     width: 480px;
   }
 }
-@media(max-width: 514px){
-  .myTask__wrapp{
+@media (max-width: 514px) {
+  .myTask__wrapp {
     width: 400px;
   }
-  .task__text{
+  .task__text {
     font-size: 13px;
   }
   .task__btn img {
     height: 30px;
     width: 30px;
   }
-  .timer{
+  .timer {
     font-size: 19px;
   }
 }
-@media(max-width: 415px){
-  .myTask__wrapp{
+@media (max-width: 415px) {
+  .myTask__wrapp {
     max-height: 480px;
     width: 350px;
   }

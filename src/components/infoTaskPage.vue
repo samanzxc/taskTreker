@@ -2,18 +2,20 @@
 import { ref } from 'vue'
 import { finishTask } from './globarVar'
 
-if (JSON.parse(localStorage.getItem('finishTaskItem'))) {
-  finishTask.value = JSON.parse(localStorage.getItem('finishTaskItem'))
+const LocalfinishTask = JSON.parse(localStorage.getItem('finishTaskItem'))
+if (LocalfinishTask) {
+  finishTask.value = LocalfinishTask
 }
+
 
 function deletTask(item) {
   finishTask.value = finishTask.value.filter((el) => el.id != item.id)
   localStorage.setItem('finishTaskItem', JSON.stringify(finishTask.value))
 }
 
-const date = new Date
+const date = new Date()
 let day = date.getDate()
-let month = date.getMonth()+1
+let month = date.getMonth() + 1
 let yers = date.getFullYear()
 </script>
 
@@ -43,7 +45,7 @@ let yers = date.getFullYear()
                   >0</span
                 >{{ item.timer[1] }}:<span v-show="item.timer[0] < 10">0</span>{{ item.timer[0] }}
               </div>
-              <span class="date">{{day}}.{{month}}.{{yers}}</span>
+              <span class="date">{{ day }}.{{ month }}.{{ yers }}</span>
             </div>
           </div>
         </div>
@@ -152,67 +154,67 @@ let yers = date.getFullYear()
 .task__btn .active {
   background-color: #a8a8a8;
 }
-.empty{
-    position: relative;
-    top: 150px;
-    display: flex;
-    justify-content: center;
-    font-size: 35px;
-    font-weight: bold;
-    color: rgba(0, 0, 0, 0.171);
+.empty {
+  position: relative;
+  top: 150px;
+  display: flex;
+  justify-content: center;
+  font-size: 35px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.171);
 }
-.wrapp{
+.wrapp {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-@media(max-width: 674px){
-  .myTask__text{
+@media (max-width: 674px) {
+  .myTask__text {
     font-size: 21px;
     text-align: center;
   }
-  .empty{
+  .empty {
     font-size: 20px;
     text-align: center;
   }
 }
-@media(max-width: 768px){
-  .myTask__wrapp{
+@media (max-width: 768px) {
+  .myTask__wrapp {
     width: 600px;
   }
 }
-@media(max-width: 615px){
-  .myTask__wrapp{
+@media (max-width: 615px) {
+  .myTask__wrapp {
     width: 480px;
   }
 }
-@media(max-width: 514px){
-  .myTask__wrapp{
+@media (max-width: 514px) {
+  .myTask__wrapp {
     width: 400px;
   }
-  .task__text{
+  .task__text {
     font-size: 13px;
   }
   .task__btn img {
     height: 30px;
     width: 30px;
   }
-  .timer{
+  .timer {
     font-size: 19px;
   }
 }
-@media(max-width: 415px){
-  .myTask__wrapp{
+@media (max-width: 415px) {
+  .myTask__wrapp {
     max-height: 480px;
     width: 350px;
   }
-  .wps p{
+  .wps p {
     font-size: 12px;
   }
-  .timer{
+  .timer {
     font-size: 15px;
   }
-  .timer .date{
+  .timer .date {
     font-size: 10px;
   }
 }
