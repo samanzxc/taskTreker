@@ -1,0 +1,28 @@
+# robots.txt for reaction.hgweb.ru
+
+User-agent: *
+Allow: /
+
+# Disallow admin/api directories if they exist
+Disallow: /api/
+Disallow: /database/
+Disallow: /node_modules/
+
+# Sitemap
+Sitemap: https://reaction.hgweb.ru/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Specific bots
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0.5
+
+User-agent: Yandex
+Allow: /
+Crawl-delay: 0.5
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
